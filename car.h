@@ -1,5 +1,5 @@
-#ifndef CAR_H_CENTR
-#define CAR_H_CENTR
+#ifndef CAR_H
+#define CAR_H
 
 typedef enum {
     MoveLeft,
