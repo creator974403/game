@@ -1,8 +1,12 @@
 #include <curses.h>
 #include <unistd.h>
+#include "types.h"
+#include "car.h"
 
 #define DELAY_DURATION 100
 #define KEY_ESCAPE 27
+
+
 
 /*void draw_border(Border old_border, Border new_border) {
   for (int y = 0; y < SCREEN_HEIGHT; y++) {
@@ -18,71 +22,6 @@
   }
 }*/
 
-typedef struct {
-    int x; 
-    int y;
-} Point;
-
-typedef enum {
-    MoveLeft,
-    MoveRight, 
-    MoveUp, 
-    MoveDown
-} Move;
-
-typedef struct {
-    int min_x, max_x;
-    int min_y, max_y;
-} Border;
-
-Point get_next_car_position(Point current_position, Move move, Border borders) {
-    Point p;
-
-    switch(move) {
-    case MoveLeft: {
-        p.x = current_position.x - 1;
-        p.y = current_position.y;
-        break;
-    }
-    case MoveRight: {
-        p.x = current_position.x + 1;
-        p.y = current_position.y;
-        break;
-    }
-    case MoveUp: {
-        p.x = current_position.x;
-        p.y = current_position.y - 1;
-        break;
-    }
-    case MoveDown: {
-        p.x = current_position.x;
-        p.y = current_position.y + 1;
-        break;
-    }
-  }
-  
-  /*if (p.x + CAR_WIDTH > border.max_x) { p.x = ...; }
-  if (p.x - CAR_WIDTH < border.min_x) { p.x = ...; }
-  // ...*/
-  
-  return p;
-}
-
-void draw_car_at_point(Point current_car_position, Point new_car_position) {
-    move(current_car_position.y, current_car_position.x);
-    addch(' ');
-    move(new_car_position.y, new_car_position.x);
-    addch('*');
-}
-
-typedef enum {
-    ActionNothing,
-    ActionQuit,
-    ActionMoveLeft,
-    ActionMoveRight,
-    ActionMoveUp,
-    ActionMoveDown,
-}   Action;
 
 Action next_action() {
     int key = getch();
