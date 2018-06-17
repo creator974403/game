@@ -16,10 +16,30 @@ typedef enum {
     ActionMoveDown,
 }   Action;
 
+void draw_inital_border(int x, int y) 
+{
+    int i;
+    for (i = 0; i < x; ++i) {
+        move(0, i);
+        addch('*');
+
+        move(y-1, i);
+        addch('*');
+    }
+
+    for (i = 0; i < y; ++i) {
+        move(i, 0);
+        addch('*');
+        
+        move(i, x-1);
+        addch('*');
+    }
+}
+
 
 Action next_action() {
     int key = getch();
-      
+
     if (key == KEY_ESCAPE) {
         return ActionQuit;
     }
@@ -48,17 +68,19 @@ int main() {
     int ord_x, ord_y;
     Action action;
 
-    initscr(); /* вызвали библиотеку*/ 
-    curs_set(0); /* скрыть курсив клавиатуры */
+    initscr(); 
+    curs_set(0); 
     cbreak(); /* введеный символ доступен сразу же после ввода */
     keypad(stdscr, 1); /* обработка escape поседовательности */ 
     noecho(); 
 
     getmaxyx(stdscr, ord_y, ord_x);
+    draw_inital_border(ord_x, ord_y);
+
     border.min_x = 0;
-    border.max_x = ord_x;
+    border.max_x = ord_x-1;
     border.min_y = 0;
-    border.max_y = ord_y;
+    border.max_y = ord_y-1;
 
     car_position.x = ord_x/2;
     car_position.y = ord_y/2;
@@ -97,7 +119,6 @@ int main() {
     draw_border(old_boder, border);*/
     refresh();
   }
-
    endwin();
    return 0;
 }
