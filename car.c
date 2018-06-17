@@ -1,5 +1,7 @@
+#include "border.h"
 #include "types.h"
-#include "car.h" 
+#include "car.h"
+
 #include <curses.h>
 
 Point get_next_car_position(Point current_position, Move move, Border borders) {
