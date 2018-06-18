@@ -101,21 +101,33 @@ int main() {
         switch(action) {
             case ActionMoveUp: {
                 car_position = get_next_car_position(car_position, MoveUp, border);
+                if (car_position.y == border.min_y) {
+                    goto _exit;
+                }
                 draw_car_at_point(old_position, car_position);
                 break;
             }
             case ActionMoveDown: {
                 car_position = get_next_car_position(car_position, MoveDown, border);
+                if (car_position.y == border.max_y) {
+                    goto _exit;
+                }
                 draw_car_at_point(old_position, car_position);
                 break;
             }
             case ActionMoveLeft: {
                 car_position = get_next_car_position(car_position, MoveLeft, border);
+                if (car_position.x == border.min_x) {
+                    goto _exit;
+                }
                 draw_car_at_point(old_position, car_position);
                 break;
             }
             case ActionMoveRight: {
                 car_position = get_next_car_position(car_position, MoveRight, border);
+                if (car_position.x == border.max_x) {
+                    goto _exit;
+                }
                 draw_car_at_point(old_position, car_position);
                 break;
             }
@@ -126,8 +138,9 @@ int main() {
     border = get_next_border(border ... );
     draw_border(old_boder, border);*/
     refresh();
-  }
-   endwin();
-   printf("GAVE OVER");
-   return 0;
+    }
+    _exit: ;
+    endwin();
+    printf("GAVE OVER\n");
+    return 0;
 }

@@ -8,7 +8,7 @@
 void draw_inital_border(int x, int y) 
 {
     int i;
-    for (i = 0; i < x ++i) {
+    for (i = 0; i < x; ++i) {
         move(0, i);
         addch('*');
 
@@ -25,16 +25,23 @@ void draw_inital_border(int x, int y)
     }
 }
 
-void draw_border(Border old_border, Border new_border) {
-    /*for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-        move(y, old_border[y].left);
+void draw_border(Border old_border, Border new_border) 
+{
+    for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+        move(y, old_border.left);
         addch(' ');
-        move(y, new_border[y].left);
+        move(y, new_border.left);
         addch('#');
     
-        move(y, old_border[y].right);
+        move(y, old_border.right);
         addch(' ');
-        move(y, new_border[y]. right);
+        move(y, new_border.right);
         addch('#');
-    }*/
+    }
+}
+
+Border get_next_border(Border border)
+{
+
+    return ;
 }
