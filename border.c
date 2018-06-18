@@ -8,7 +8,7 @@
 void draw_inital_border(int x, int y) 
 {
     int i;
-    for (i = 0; i < x; ++i) {
+    for (i = 0; i < x ++i) {
         move(0, i);
         addch('*');
 

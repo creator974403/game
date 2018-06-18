@@ -78,14 +78,22 @@ int main() {
     draw_inital_border(ord_x, ord_y);
 
     border.min_x = 0;
-    border.max_x = ord_x-1;
+    border.max_x = ord_x-3;
     border.min_y = 0;
-    border.max_y = ord_y-1;
+    border.max_y = ord_y-4;
 
-    car_position.x = ord_x/2;
+    car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
+
     move(car_position.y, car_position.x);
-    addch('*');
+    addstr(" ^ ");
+    move(car_position.y+1, car_position.x);
+    addstr("|+|");
+    move(car_position.y+2, car_position.x);
+    addstr(" | ");
+    move(car_position.y+3, car_position.x);
+    addstr("|-|");
+
     refresh();
 
     while( (action = next_action()) != ActionQuit) {
@@ -120,5 +128,6 @@ int main() {
     refresh();
   }
    endwin();
+   printf("GAVE OVER");
    return 0;
 }
