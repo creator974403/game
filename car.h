@@ -2,6 +2,9 @@
 #define CAR_H
 
 
+#define CAR_WIDTH 3
+#define CAR_HEIGHT 4
+
 typedef enum {
     MoveLeft,
     MoveRight, 
