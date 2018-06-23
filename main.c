@@ -44,11 +44,6 @@ int main() {
     border.radius = 20;
     draw_border(border, screen);
 
-    border.min_x = 0;
-    border.max_x = ord_x-3;
-    border.min_y = 0;
-    border.max_y = ord_y-4;
-
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
 
