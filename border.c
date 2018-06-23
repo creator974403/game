@@ -12,9 +12,17 @@ void draw_border(Border border, Screen screen)
 
     for (y = min_y; y < max_y; ++y) {
         move(y, mid_x - r);
-        addch('#');
-        
+        if (y % 4 == 0) {
+            addch('@');    
+        } else {
+            addch('#');
+        }
+
         move(y, mid_x + r);
-        addch('#');
+        if (y % 4 == 0) {
+            addch('@');    
+        } else {
+            addch('#');
+        }
     }
 }
