@@ -41,15 +41,7 @@ int main() {
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
 
-    move(car_position.y, car_position.x);
-    addstr(" ^ ");
-    move(car_position.y+1, car_position.x);
-    addstr("|+|");
-    move(car_position.y+2, car_position.x);
-    addstr(" | ");
-    move(car_position.y+3, car_position.x);
-    addstr("|-|");
-
+    draw_car_at_point(car_position);
     refresh();
 
     while( (action = next_action()) != ActionQuit) {
@@ -60,7 +52,8 @@ int main() {
                 if (car_position.y == border.min_y) {
                     goto _exit;
                 }
-                draw_car_at_point(old_position, car_position);
+                clear_car_at_position(old_position);
+                draw_car_at_point(car_position);
                 break;
             }
             case ActionMoveDown: {
@@ -68,7 +61,8 @@ int main() {
                 if (car_position.y == border.max_y) {
                     goto _exit;
                 }
-                draw_car_at_point(old_position, car_position);
+                clear_car_at_position(old_position);
+                draw_car_at_point(car_position);                
                 break;
             }
             case ActionMoveLeft: {
@@ -76,7 +70,8 @@ int main() {
                 if (car_position.x == border.min_x) {
                     goto _exit;
                 }
-                draw_car_at_point(old_position, car_position);
+                clear_car_at_position(old_position);
+                draw_car_at_point(car_position);
                 break;
             }
             case ActionMoveRight: {
@@ -84,7 +79,8 @@ int main() {
                 if (car_position.x == border.max_x) {
                     goto _exit;
                 }
-                draw_car_at_point(old_position, car_position);
+                clear_car_at_position(old_position);
+                draw_car_at_point(car_position);
                 break;
             }
             default:

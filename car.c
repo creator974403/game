@@ -45,14 +45,17 @@ Point get_next_car_position(Point current_position, Move move, Border border)
     return p;
 }
 
-void draw_car_at_point(Point current_car_position, Point new_car_position) 
+void clear_car_at_position(Point car_position) 
 {
     int i;
     for (i = 0; i <= 3; ++i) {
-        move(current_car_position.y + i, current_car_position.x);
+        move(car_position.y + i, car_position.x);
         addstr("   ");
     }
+}
 
+void draw_car_at_point(Point new_car_position) 
+{
     move(new_car_position.y, new_car_position.x);
     addstr(" ^ ");
     move(new_car_position.y+1, new_car_position.x);
