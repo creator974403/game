@@ -98,10 +98,7 @@ int main() {
                 break;
         }
         
-    /*Border old_border = border;
-    border = get_next_border(border);
-    draw_border(old_boder, border);*/
-    refresh();
+        refresh();
     }
     _exit: ;
     endwin();
