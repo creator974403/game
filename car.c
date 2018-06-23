@@ -1,9 +1,8 @@
-#include "border.h"
 #include "types.h"
 #include "car.h"
 #include <curses.h>
 
-Point get_next_car_position(Point current_position, Move move, Border border) 
+Point get_next_car_position(Point current_position, Move move) 
 {
     Point p;
 
@@ -28,19 +27,6 @@ Point get_next_car_position(Point current_position, Move move, Border border)
             p.y = current_position.y + 1;
             break;
         }
-    }
-  
-    if (p.x > border.max_x) { 
-        p.x = border.max_x; 
-    }
-    if (p.x <= border.min_x) { 
-        p.x = border.min_x; 
-    }
-    if (p.y > border.max_y) { 
-        p.y = border.max_y; 
-    }
-    if (p.y <= border.min_y) { 
-        p.y = border.min_y; 
     }
     return p;
 }

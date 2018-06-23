@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "types.h"
 #include "car.h"
+#include "game.h"
 
 #define DELAY_DURATION 5
 #define KEY_ESCAPE 27
@@ -31,7 +32,7 @@ int main() {
     noecho(); 
 
     getmaxyx(stdscr, ord_y, ord_x);
-    //draw_inital_border(ord_x, ord_y);
+    draw_inital_border(ord_x, ord_y);
 
     border.min_x = 0;
     border.max_x = ord_x-3;
@@ -48,8 +49,8 @@ int main() {
         Point old_position = car_position;
         switch(action) {
             case ActionMoveUp: {
-                car_position = get_next_car_position(car_position, MoveUp, border);
-                if (car_position.y == border.min_y) {
+                car_position = get_next_car_position(car_position, MoveUp);
+                if (is_car_collide_with_border(car_position, border)) {
                     goto _exit;
                 }
                 clear_car_at_position(old_position);
@@ -57,8 +58,8 @@ int main() {
                 break;
             }
             case ActionMoveDown: {
-                car_position = get_next_car_position(car_position, MoveDown, border);
-                if (car_position.y == border.max_y) {
+                car_position = get_next_car_position(car_position, MoveDown);
+                if (is_car_collide_with_border(car_position, border)) {
                     goto _exit;
                 }
                 clear_car_at_position(old_position);
@@ -66,8 +67,8 @@ int main() {
                 break;
             }
             case ActionMoveLeft: {
-                car_position = get_next_car_position(car_position, MoveLeft, border);
-                if (car_position.x == border.min_x) {
+                car_position = get_next_car_position(car_position, MoveLeft);
+                if (is_car_collide_with_border(car_position, border)) {
                     goto _exit;
                 }
                 clear_car_at_position(old_position);
@@ -75,8 +76,8 @@ int main() {
                 break;
             }
             case ActionMoveRight: {
-                car_position = get_next_car_position(car_position, MoveRight, border);
-                if (car_position.x == border.max_x) {
+                car_position = get_next_car_position(car_position, MoveRight);
+                if (is_car_collide_with_border(car_position, border)) {
                     goto _exit;
                 }
                 clear_car_at_position(old_position);
