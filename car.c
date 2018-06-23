@@ -3,7 +3,8 @@
 #include "car.h"
 #include <curses.h>
 
-Point get_next_car_position(Point current_position, Move move, Border border) {
+Point get_next_car_position(Point current_position, Move move, Border border) 
+{
     Point p;
 
     switch(move) {
@@ -41,10 +42,11 @@ Point get_next_car_position(Point current_position, Move move, Border border) {
     if (p.y <= border.min_y) { 
         p.y = border.min_y; 
     }
-  return p;
+    return p;
 }
 
-void draw_car_at_point(Point current_car_position, Point new_car_position) {
+void draw_car_at_point(Point current_car_position, Point new_car_position) 
+{
     int i;
     for (i = 0; i <= 3; ++i) {
         move(current_car_position.y + i, current_car_position.x);

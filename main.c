@@ -4,7 +4,7 @@
 #include "types.h"
 #include "car.h"
 
-#define DELAY_DURATION 100
+#define DELAY_DURATION 5
 #define KEY_ESCAPE 27
 
 typedef enum {
@@ -15,27 +15,6 @@ typedef enum {
     ActionMoveUp,
     ActionMoveDown,
 }   Action;
-
-void draw_inital_border(int x, int y) 
-{
-    int i;
-    for (i = 0; i < x; ++i) {
-        move(0, i);
-        addch('*');
-
-        move(y-1, i);
-        addch('*');
-    }
-
-    for (i = 0; i < y; ++i) {
-        move(i, 0);
-        addch('*');
-        
-        move(i, x-1);
-        addch('*');
-    }
-}
-
 
 Action next_action() {
     int key = getch();
@@ -134,13 +113,15 @@ int main() {
             default:
                 break;
         }
-    /*Border old_border = border;
-    border = get_next_border(border ... );
-    draw_border(old_boder, border);*/
+        
+    Border old_border = border;
+    border = get_next_border(border);
+    draw_border(old_boder, border);
     refresh();
     }
     _exit: ;
     endwin();
     printf("GAVE OVER\n");
+    sleep(DELAY_DURATION);
     return 0;
 }
