@@ -1,12 +1,15 @@
-#include "border.h"
 #include <curses.h>
 #include <unistd.h>
 #include "types.h"
+#include "screen.h"
+#include "border.h"
 #include "car.h"
 #include "game.h"
 
+
 #define DELAY_DURATION 5
 #define KEY_ESCAPE 27
+
 
 typedef enum {
     ActionNothing,
@@ -17,13 +20,16 @@ typedef enum {
     ActionMoveDown,
 }   Action;
 
+
 Action next_action();
+
 
 int main() {
     Point car_position;
     Border border;
     int ord_x, ord_y;
     Action action;
+    Screen screen;
 
     initscr(); 
     curs_set(0); 
@@ -32,6 +38,10 @@ int main() {
     noecho(); 
 
     getmaxyx(stdscr, ord_y, ord_x);
+    screen.ord_x = ord_x;
+    screen.ord_y = ord_y;
+
+    border.radius = 20;
     draw_inital_border(ord_x, ord_y);
 
     border.min_x = 0;
