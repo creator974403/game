@@ -60,36 +60,24 @@ int main() {
         switch(action) {
             case ActionMoveUp: {
                 car_position = get_next_car_position(car_position, MoveUp);
-                if (is_car_collide_with_border(car_position, border)) {
-                    goto _exit;
-                }
                 clear_car_at_position(old_position);
                 draw_car_at_point(car_position);
                 break;
             }
             case ActionMoveDown: {
                 car_position = get_next_car_position(car_position, MoveDown);
-                if (is_car_collide_with_border(car_position, border)) {
-                    goto _exit;
-                }
                 clear_car_at_position(old_position);
                 draw_car_at_point(car_position);                
                 break;
             }
             case ActionMoveLeft: {
                 car_position = get_next_car_position(car_position, MoveLeft);
-                if (is_car_collide_with_border(car_position, border)) {
-                    goto _exit;
-                }
                 clear_car_at_position(old_position);
                 draw_car_at_point(car_position);
                 break;
             }
             case ActionMoveRight: {
                 car_position = get_next_car_position(car_position, MoveRight);
-                if (is_car_collide_with_border(car_position, border)) {
-                    goto _exit;
-                }
                 clear_car_at_position(old_position);
                 draw_car_at_point(car_position);
                 break;
@@ -97,7 +85,9 @@ int main() {
             default:
                 break;
         }
-        
+        if (is_car_collide_with_border(car_position, border, screen)) {
+            goto _exit;
+        }
         refresh();
     }
     _exit: ;

@@ -2,24 +2,26 @@
 #include "types.h"
 #include "game.h"
 
-#define CAR_WIDTH 3
-#define CAR_HEIGHT 4
 
-int is_car_collide_with_border(Point car_position, Border border)
+int is_car_collide_with_border(Point car_position, Border border, Screen screen)
 {
-    if (car_position.x <= border.min_x) {
+    int mid_x = screen.ord_x / 2;
+    int min_y = 0, max_y = screen.ord_y;
+    int r = border.radius;
+
+    if (car_position.x <= mid_x - r) {
         return 1;
     }
     
-    if (car_position.x + CAR_WIDTH >= border.max_x) {
+    if (car_position.x + CAR_WIDTH >= mid_x + r) {
         return 1;
     }
 
-    if (car_position.y <= border.min_y) {
+    if (car_position.y <= 0) {
         return 1;
     }
     
-    if (car_position.y + CAR_HEIGHT >= border.max_y) {
+    if (car_position.y + CAR_HEIGHT >= screen.ord_y) {
         return 1;
     }
     return 0;
