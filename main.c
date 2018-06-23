@@ -16,30 +16,7 @@ typedef enum {
     ActionMoveDown,
 }   Action;
 
-Action next_action() {
-    int key = getch();
-
-    if (key == KEY_ESCAPE) {
-        return ActionQuit;
-    }
-      
-    if (key == KEY_UP) {
-        return ActionMoveUp;
-    }
-  
-    if (key == KEY_DOWN) {
-        return ActionMoveDown;
-    }
-  
-    if (key == KEY_LEFT) {
-        return ActionMoveLeft;
-    }
-  
-    if (key == KEY_RIGHT) {
-        return ActionMoveRight;
-    }
-    return ActionNothing;
-}
+Action next_action();
 
 int main() {
     Point car_position;
@@ -124,4 +101,29 @@ int main() {
     printf("GAVE OVER\n");
     sleep(DELAY_DURATION);
     return 0;
+}
+
+Action next_action() {
+    int key = getch();
+
+    if (key == KEY_ESCAPE) {
+        return ActionQuit;
+    }
+      
+    if (key == KEY_UP) {
+        return ActionMoveUp;
+    }
+  
+    if (key == KEY_DOWN) {
+        return ActionMoveDown;
+    }
+  
+    if (key == KEY_LEFT) {
+        return ActionMoveLeft;
+    }
+  
+    if (key == KEY_RIGHT) {
+        return ActionMoveRight;
+    }
+    return ActionNothing;
 }
