@@ -1,8 +1,9 @@
-#include "border.h"
 #include <curses.h>
 #include <unistd.h>
+#include "border.h"
 
-void draw_inital_border(int x, int y) 
+
+void draw_border(Border border, Screen screen) 
 {
     int i;
     for (i = 0; i < x; ++i) {

@@ -42,7 +42,7 @@ int main() {
     screen.ord_y = ord_y;
 
     border.radius = 20;
-    draw_inital_border(ord_x, ord_y);
+    draw_border(border, screen);
 
     border.min_x = 0;
     border.max_x = ord_x-3;

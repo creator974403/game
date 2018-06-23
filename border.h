@@ -1,19 +1,14 @@
 #ifndef BORDER_H
 #define BORDER_H
 
+#include "screen.h"
 
 typedef struct {
-    int min_x, max_x;
-    int min_y, max_y;
+	int radius;
 } Border;
 
-typedef struct {
-    int right;
-    int left;
-} Borders;
 
-
-void draw_inital_border(int x, int y);
+void draw_border(Border border, Screen screen);
 /*void draw_border(Border old_border, Border new_border);
 
 Border get_next_border(Border border);*/
