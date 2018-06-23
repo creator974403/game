@@ -27,7 +27,7 @@ void draw_inital_border(int x, int y)
 
 void draw_border(Border old_border, Boredr new_border) 
 {
-    for (int y = 0; y < border.max_y; ++y) {
+    /*for (int y = 0; y < border.max_y; ++y) {
         move(y, old_border.left);
         addch(' ');
         move(y, new_border.left);
@@ -37,14 +37,14 @@ void draw_border(Border old_border, Boredr new_border)
         addch(' ');
         move(y, new_border.right);
         addch('#');
-    }
+    }*/
 }
 
 Border get_next_border(Border border)
 {
-    border b;
+    /*border b;
     b.x = border.min_x+10;
     b.y = border.min_y;
 
-    return b;
+    return b;*/
 }

@@ -15,6 +15,8 @@ typedef struct {
 
 void draw_border(Border old_border, Border new_border);
 void draw_inital_border(int x, int y);
+
+
 Border get_next_border(Border border);
 
 

@@ -31,7 +31,7 @@ int main() {
     noecho(); 
 
     getmaxyx(stdscr, ord_y, ord_x);
-    draw_inital_border(ord_x, ord_y);
+    //draw_inital_border(ord_x, ord_y);
 
     border.min_x = 0;
     border.max_x = ord_x-3;
@@ -87,9 +87,9 @@ int main() {
                 break;
         }
         
-    Border old_border = border;
+    /*Border old_border = border;
     border = get_next_border(border);
-    draw_border(old_boder, border);
+    draw_border(old_boder, border);*/
     refresh();
     }
     _exit: ;
