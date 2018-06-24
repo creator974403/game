@@ -27,6 +27,11 @@ Point get_next_car_position(Point current_position, Move move)
             p.y = current_position.y + 1;
             break;
         }
+        case MoveWithoutChange: {
+            p.x = current_position.x;
+            p.y = current_position.y;
+            break;
+        }
     }
     return p;
 }

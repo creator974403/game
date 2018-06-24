@@ -1,5 +1,6 @@
 #include <curses.h>
 #include <unistd.h>
+#include <time.h>
 #include "types.h"
 #include "screen.h"
 #include "track.h"
@@ -7,9 +8,8 @@
 #include "game.h"
 
 
-#define DELAY_DURATION 5
+#define WAITE_TIME 100
 #define KEY_ESCAPE 27
-
 
 typedef enum {
     ActionNothing,
@@ -26,12 +26,14 @@ void init_screen();
 void handle_move_action(Action action, Point old_position, Point *car_position);
 
 
-int main() {
+int main() 
+{
     Point car_position;
     Track track;
     int ord_x, ord_y;
     Action action;
     Screen screen;
+    timeout(WAITE_TIME);
 
     init_screen();   
 
@@ -63,7 +65,8 @@ int main() {
     return 0;
 }
 
-Action next_action() {
+Action next_action() 
+{
     int key = getch();
 
     if (key == KEY_ESCAPE) {
@@ -85,6 +88,7 @@ Action next_action() {
     if (key == KEY_RIGHT) {
         return ActionMoveRight;
     }
+    
     return ActionNothing;
 }
 
@@ -116,6 +120,11 @@ void handle_move_action(Action action, Point old_position, Point *car_position)
             *car_position = get_next_car_position(*car_position, MoveRight);
             break;
         }
+        case ActionNothing: {
+            *car_position = get_next_car_position(*car_position, MoveWithoutChange);
+            break;
+        }
+
         default:
             break;
     }
