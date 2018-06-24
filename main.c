@@ -120,10 +120,6 @@ void handle_move_action(Action action, Point old_position, Point *car_position)
             *car_position = get_next_car_position(*car_position, MoveRight);
             break;
         }
-        case ActionNothing: {
-            *car_position = get_next_car_position(*car_position, MoveWithoutChange);
-            break;
-        }
 
         default:
             break;

@@ -13,7 +13,7 @@ typedef struct {
 
 
 void draw_track(int LENGTH_TRACK,Track track, Screen screen);
-void draw_frieze(int x, int y);
+void draw_frieze(int x, int y, int part_distance);
 
 
 #endif

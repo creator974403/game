@@ -10,7 +10,6 @@ typedef enum {
     MoveRight, 
     MoveUp, 
     MoveDown,
-    MoveWithoutChange
 } Move;
 
 Point get_next_car_position(Point current_position, Move move);
