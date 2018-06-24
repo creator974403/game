@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "types.h"
 #include "screen.h"
-#include "border.h"
+#include "track.h"
 #include "car.h"
 #include "game.h"
 
@@ -28,7 +28,7 @@ void handle_move_action(Action action, Point old_position, Point *car_position);
 
 int main() {
     Point car_position;
-    Border border;
+    Track track;
     int ord_x, ord_y;
     Action action;
     Screen screen;
@@ -39,8 +39,8 @@ int main() {
     screen.ord_x = ord_x;
     screen.ord_y = ord_y;
 
-    border.radius = 20;
-    draw_border(border, screen);
+    track.radius = 20;
+    draw_track(track, screen);
 
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
@@ -51,7 +51,7 @@ int main() {
     while( (action = next_action()) != ActionQuit) {
         Point old_position = car_position;
         handle_move_action(action, old_position, &car_position);
-        if (is_car_collide_with_border(car_position, border, screen)) {
+        if (is_car_collide_with_track(car_position, track, screen)) {
             break;
         }
         refresh();

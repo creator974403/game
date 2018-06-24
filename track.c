@@ -1,14 +1,14 @@
 #include <curses.h>
 #include <unistd.h>
-#include "border.h"
+#include "track.h"
 
 
-void draw_border(Border border, Screen screen) 
+void draw_track(Track track, Screen screen) 
 {
     int y;
     int mid_x = screen.ord_x / 2;
     int min_y = 0, max_y = screen.ord_y;
-    int r = border.radius; 
+    int r = track.radius; 
 
     for (y = min_y; y < max_y; ++y) {
         move(y, mid_x - r);

@@ -1,13 +1,13 @@
-#include "border.h"
+#include "track.h"
 #include "types.h"
 #include "game.h"
 #include "car.h"
 
-int is_car_collide_with_border(Point car_position, Border border, Screen screen)
+int is_car_collide_with_track(Point car_position, Track track, Screen screen)
 {
     int mid_x = screen.ord_x / 2;
     int min_y = 0, max_y = screen.ord_y;
-    int r = border.radius;
+    int r = track.radius;
 
     if (car_position.x <= mid_x - r) {
         return 1;

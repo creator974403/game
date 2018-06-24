@@ -6,10 +6,10 @@
 
 typedef struct {
 	int radius;
-} Border;
+} Track;
 
 
-void draw_border(Border border, Screen screen);
+void draw_track(Track track, Screen screen);
 
 
 #endif
