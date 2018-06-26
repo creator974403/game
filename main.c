@@ -18,7 +18,7 @@ typedef enum {
     ActionMoveRight,
     ActionMoveUp,
     ActionMoveDown,
-}   Action;
+} Action;
 
 
 Action next_action();
@@ -34,14 +34,17 @@ int main()
     Action action;
     Screen screen;
     timeout(WAITE_TIME);
+    double distance = 0.0;
 
-    init_screen();   
+    init_screen();
 
     getmaxyx(stdscr, ord_y, ord_x);
     screen.ord_x = ord_x;
     screen.ord_y = ord_y;
 
-    track.radius = 20;
+    track.length = 1000;
+    track.width  = 40;
+    time_t before = time(NULL);
     draw_track(track, screen);
 
     car_position.x = ord_x/2-2;
@@ -51,17 +54,22 @@ int main()
     refresh();
 
     while( (action = next_action()) != ActionQuit) {
+        time_t after = time(NULL);
+        double dt = difftime(after, before);
+        
         Point old_position = car_position;
         handle_move_action(action, old_position, &car_position);
         if (is_car_collide_with_track(car_position, track, screen)) {
             break;
         }
+        distance = distance + SPEED * dt;
+        draw_track(track, screen, distance);
         refresh();
     }
     
     endwin();
     printf("GAVE OVER\n");
-    sleep(DELAY_DURATION);
+    sleep(WAITE_TIME);
     return 0;
 }
 
