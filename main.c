@@ -33,8 +33,7 @@ int main()
     int ord_x, ord_y;
     Action action;
     Screen screen;
-    timeout(WAITE_TIME);
-    double distance = 0.0;
+    int distance = 0;
 
     init_screen();
 
@@ -45,7 +44,7 @@ int main()
     track.length = 1000;
     track.width  = 40;
     time_t before = time(NULL);
-    draw_track(track, screen);
+    draw_track(track, screen, distance);
 
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
@@ -60,16 +59,20 @@ int main()
         Point old_position = car_position;
         handle_move_action(action, old_position, &car_position);
         if (is_car_collide_with_track(car_position, track, screen)) {
+            endwin();
+            printf("GAVE OVER!\n");
             break;
         }
-        distance = distance + SPEED * dt;
+        
+        distance += SPEED * dt;
+        if (distance >= track.length) {
+            endwin();
+            printf("YOU WIN!\n");
+            break;
+        }
         draw_track(track, screen, distance);
         refresh();
     }
-    
-    endwin();
-    printf("GAVE OVER\n");
-    sleep(WAITE_TIME);
     return 0;
 }
 
@@ -107,6 +110,7 @@ void init_screen()
     cbreak(); /* введеный символ доступен сразу же после ввода */
     keypad(stdscr, 1); /* обработка escape поседовательности */ 
     noecho(); 
+    timeout(WAITE_TIME);
 }
 
 void handle_move_action(Action action, Point old_position, Point *car_position)
