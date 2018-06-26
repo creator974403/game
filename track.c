@@ -28,9 +28,9 @@ void draw_track(int length_track, Track track, Screen screen)
 void draw_frieze(int x, int y, int part_distance)
 {
     move(y, x);
-        if (y % part_distance == 0) {
-            addch('@');    
-        } else {
-            addch('#');
-        }    
+    if (y % part_distance == 0) {
+        addch('@');    
+    } else {
+        addch('#');
+    }    
 }
