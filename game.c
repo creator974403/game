@@ -5,14 +5,15 @@
 
 int is_car_collide_with_track(Point car_position, Track track, Screen screen)
 {
-    int min_x = 0, max_x = track.width
+    int left_border = screen.ord_x / 2 - track.width / 2;
+    int right_border= screen.ord_x / 2 + track.width / 2;
     int min_y = 0, max_y = screen.ord_y;
 
-    if (car_position.x <= min_x) {
+    if (car_position.x <= left_border) {
         return 1;
     }
     
-    if (car_position.x + CAR_WIDTH >= man_x) {
+    if (car_position.x + CAR_WIDTH >= right_border) {
         return 1;
     }
 
