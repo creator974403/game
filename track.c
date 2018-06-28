@@ -28,3 +28,18 @@ void draw_frieze(int x, int y)
         addch('#');
     }    
 }
+
+void draw_finish(Track track, Screen screen)
+{
+    int y, x;
+    int left_border = screen.ord_x / 2 - track.width / 2;
+    int right_border = screen.ord_x / 2 + track.width / 2;
+    int min_y = 5, max_y = 10;
+    
+    for (y = min_y; y <= max_y; y++) {
+        for (x = left_border; x <= right_border; ++x) {
+            move(y, x);
+            addch('*');
+        }
+    }
+}

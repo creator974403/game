@@ -54,23 +54,27 @@ int main()
 
     while( (action = next_action()) != ActionQuit) {
         time_t after = time(NULL);
-        double dt = difftime(after, before);
-        
+        int dt = (int)difftime(after, before);
         Point old_position = car_position;
         handle_move_action(action, old_position, &car_position);
         if (is_car_collide_with_track(car_position, track, screen)) {
             endwin();
-            printf("GAVE OVER!\n");
+            printf("GAVE OVER\n");
             break;
         }
-        
+
         distance += SPEED * dt;
+        if (distance >= track.length - 20) {
+            draw_finish(track, screen);
+        }
+
         if (distance >= track.length) {
             endwin();
-            printf("YOU WIN!\n");
+            printf("YOU WIN\n");
             break;
         }
-        draw_track(track, screen, distance);
+
+        draw_track(track, screen);
         refresh();
     }
     return 0;
