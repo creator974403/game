@@ -1,15 +1,16 @@
 #include <curses.h>
 #include <unistd.h>
+#include <time.h>
 #include "types.h"
 #include "screen.h"
-#include "border.h"
+#include "track.h"
 #include "car.h"
 #include "game.h"
 
 
-#define DELAY_DURATION 5
+#define GETCHAR_TIMEOUT_MILLSEC 100
 #define KEY_ESCAPE 27
-
+#define FINISHLINE_DRAWING_OFFSET 20
 
 typedef enum {
     ActionNothing,
@@ -18,31 +19,43 @@ typedef enum {
     ActionMoveRight,
     ActionMoveUp,
     ActionMoveDown,
-}   Action;
+} Action;
 
 
 Action next_action();
+void init_screen();
+void handle_move_action(Action action, Point old_position, Point *car_position);
 
 
-int main() {
+int main() 
+{
     Point car_position;
-    Border border;
+    Track track;
     int ord_x, ord_y;
     Action action;
     Screen screen;
-
-    initscr(); 
-    curs_set(0); 
-    cbreak(); /* введеный символ доступен сразу же после ввода */
-    keypad(stdscr, 1); /* обработка escape поседовательности */ 
-    noecho(); 
+    int distance = 0;
+    int i;
+    init_screen();
 
     getmaxyx(stdscr, ord_y, ord_x);
     screen.ord_x = ord_x;
     screen.ord_y = ord_y;
 
-    border.radius = 20;
-    draw_border(border, screen);
+    track.length = 1000;
+    track.width  = 40;
+    time_t before = time(NULL);
+    
+    int fence[ord_y];
+    for (i = 0; i < ord_y; ++i) {
+        if (i % 4 == 0) {
+            fence[i] = '@';
+        } else {
+            fence[i] = '#';
+        }
+    }
+
+    draw_track(track, screen, &fence);
 
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
@@ -50,51 +63,36 @@ int main() {
     draw_car_at_point(car_position);
     refresh();
 
-    while( (action = next_action()) != ActionQuit) {
+    while( (action = next_action( getch() )) != ActionQuit) {
+        time_t after = time(NULL);
+        int dt = (int)difftime(after, before);
         Point old_position = car_position;
-        switch(action) {
-            case ActionMoveUp: {
-                car_position = get_next_car_position(car_position, MoveUp);
-                clear_car_at_position(old_position);
-                draw_car_at_point(car_position);
-                break;
-            }
-            case ActionMoveDown: {
-                car_position = get_next_car_position(car_position, MoveDown);
-                clear_car_at_position(old_position);
-                draw_car_at_point(car_position);                
-                break;
-            }
-            case ActionMoveLeft: {
-                car_position = get_next_car_position(car_position, MoveLeft);
-                clear_car_at_position(old_position);
-                draw_car_at_point(car_position);
-                break;
-            }
-            case ActionMoveRight: {
-                car_position = get_next_car_position(car_position, MoveRight);
-                clear_car_at_position(old_position);
-                draw_car_at_point(car_position);
-                break;
-            }
-            default:
-                break;
+        handle_move_action(action, old_position, &car_position);
+        if (is_car_collide_with_wall(car_position, track, screen)) {
+            endwin();
+            printf("GAVE OVER\n");
+            break;
         }
-        if (is_car_collide_with_border(car_position, border, screen)) {
-            goto _exit;
+
+        distance += SPEED * dt;
+        if (distance >= track.length - FINISHLINE_DRAWING_OFFSET) {
+            draw_finish(track, screen);
         }
+
+        if (distance >= track.length) {
+            endwin();
+            printf("YOU WIN\n");
+            break;
+        }
+
+        draw_track(track, screen, &fence);
         refresh();
     }
-    _exit: ;
-    endwin();
-    printf("GAVE OVER\n");
-    sleep(DELAY_DURATION);
     return 0;
 }
 
-Action next_action() {
-    int key = getch();
-
+Action next_action(int key)
+{
     if (key == KEY_ESCAPE) {
         return ActionQuit;
     }
@@ -114,5 +112,43 @@ Action next_action() {
     if (key == KEY_RIGHT) {
         return ActionMoveRight;
     }
+    
     return ActionNothing;
+}
+
+void init_screen()
+{
+    initscr(); 
+    curs_set(0); 
+    cbreak(); /* введеный символ доступен сразу же после ввода */
+    keypad(stdscr, 1); /* обработка escape поседовательности */ 
+    noecho(); 
+    timeout(GETCHAR_TIMEOUT_MILLSEC);
+}
+
+void handle_move_action(Action action, Point old_position, Point *car_position)
+{
+    switch (action) {
+        case ActionMoveUp: {
+            *car_position = get_next_car_position(*car_position, MoveUp);
+            break;
+        }
+        case ActionMoveDown: {
+            *car_position = get_next_car_position(*car_position, MoveDown);
+            break;
+        }
+        case ActionMoveLeft: {
+            *car_position = get_next_car_position(*car_position, MoveLeft);
+            break;
+        }
+        case ActionMoveRight: {
+            *car_position = get_next_car_position(*car_position, MoveRight);
+            break;
+        }
+
+        default:
+            break;
+    }
+    clear_car_at_position(old_position);
+    draw_car_at_point(*car_position);
 }

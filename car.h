@@ -4,12 +4,13 @@
 
 #define CAR_WIDTH 3
 #define CAR_HEIGHT 4
+#define SPEED 40
 
 typedef enum {
     MoveLeft,
     MoveRight, 
     MoveUp, 
-    MoveDown
+    MoveDown,
 } Move;
 
 Point get_next_car_position(Point current_position, Move move);
