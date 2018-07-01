@@ -4,30 +4,24 @@
 #include "track.h"
 
 
-void draw_track(Track track, Screen screen, double distance) 
+void draw_track(Track track, Screen screen, int *fence) 
 {
     int y;
-    int i = 0;
+    int temp;
     int left_border = screen.ord_x / 2 - track.width / 2;
     int right_border = screen.ord_x / 2 + track.width / 2;
     int min_y = 0, max_y = screen.ord_y; 
     
     for (y = min_y; y < max_y; ++y) {
-        (i <= 4) ? (++i) : (i = 0);
-        y += i;
-        draw_frieze(left_border, y);
-        draw_frieze(right_border, y);
+        move(y, x);
+        addch(fence[y]);
     }
-}
-
-void draw_frieze(int x, int y)
-{
-    move(y, x);
-    if (y % 4 == 0) {
-        addch('@');    
-    } else {
-        addch('#');
-    }    
+    
+    temp = fence[screen.ord_y];
+    fence[0] = temp;
+    for (y = 0; y < max_y - 1; ++y) {
+        fence[y+1] = fence[y];
+    }
 }
 
 void draw_finish(Track track, Screen screen)

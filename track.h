@@ -10,8 +10,7 @@ typedef struct {
 } Track;
 
 
-void draw_track(Track track, Screen screen, double distance);
-void draw_frieze(int x, int y);
+void draw_track(Track track, Screen screen, int *fence);
 void draw_finish(Track track, Screen screen);
 
 #endif

@@ -10,6 +10,7 @@
 
 #define WAIT_TIME 100
 #define KEY_ESCAPE 27
+#define FINISHLINE_DRAWING_OFFSET 20
 
 typedef enum {
     ActionNothing,
@@ -34,7 +35,7 @@ int main()
     Action action;
     Screen screen;
     int distance = 0;
-
+    int i;
     init_screen();
 
     getmaxyx(stdscr, ord_y, ord_x);
@@ -44,7 +45,17 @@ int main()
     track.length = 1000;
     track.width  = 40;
     time_t before = time(NULL);
-    draw_track(track, screen, distance);
+    
+    int fence[ord_y];
+    for (i = 0; i < ord_y; ++i) {
+        if (i % 4 == 0) {
+            fence[i] = '@';
+        } else {
+            fence[i] = '#';
+        }
+    }
+
+    draw_track(track, screen, &fence);
 
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
@@ -52,7 +63,7 @@ int main()
     draw_car_at_point(car_position);
     refresh();
 
-    while( (action = next_action()) != ActionQuit) {
+    while( (action = next_action( getch() )) != ActionQuit) {
         time_t after = time(NULL);
         int dt = (int)difftime(after, before);
         Point old_position = car_position;
@@ -64,7 +75,7 @@ int main()
         }
 
         distance += SPEED * dt;
-        if (distance >= track.length - 20) {
+        if (distance >= track.length - FINISHLINE_DRAWING_OFFSET) {
             draw_finish(track, screen);
         }
 
@@ -74,16 +85,14 @@ int main()
             break;
         }
 
-        draw_track(track, screen);
+        draw_track(track, screen, &fence);
         refresh();
     }
     return 0;
 }
 
-Action next_action()
+Action next_action(int key)
 {
-    int key = getch();
-
     if (key == KEY_ESCAPE) {
         return ActionQuit;
     }
@@ -114,7 +123,7 @@ void init_screen()
     cbreak(); /* введеный символ доступен сразу же после ввода */
     keypad(stdscr, 1); /* обработка escape поседовательности */ 
     noecho(); 
-    timeout(WAITE_TIME);
+    timeout(WAIT_TIME);
 }
 
 void handle_move_action(Action action, Point old_position, Point *car_position)
