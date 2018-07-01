@@ -8,7 +8,7 @@
 #include "game.h"
 
 
-#define WAITE_TIME 100
+#define WAIT_TIME 100
 #define KEY_ESCAPE 27
 
 typedef enum {
@@ -80,7 +80,7 @@ int main()
     return 0;
 }
 
-Action next_action() 
+Action next_action()
 {
     int key = getch();
 

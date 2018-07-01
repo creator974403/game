@@ -4,16 +4,17 @@
 #include "track.h"
 
 
-void draw_frieze(int x, int y, int part_distance);
-
 void draw_track(Track track, Screen screen, double distance) 
 {
     int y;
+    int i = 0;
     int left_border = screen.ord_x / 2 - track.width / 2;
-    int right_border= screen.ord_x / 2 + track.width / 2;
+    int right_border = screen.ord_x / 2 + track.width / 2;
     int min_y = 0, max_y = screen.ord_y; 
     
     for (y = min_y; y < max_y; ++y) {
+        (i <= 4) ? (++i) : (i = 0);
+        y += i;
         draw_frieze(left_border, y);
         draw_frieze(right_border, y);
     }
@@ -31,7 +32,7 @@ void draw_frieze(int x, int y)
 
 void draw_finish(Track track, Screen screen)
 {
-    int y, x;
+    int x, y;
     int left_border = screen.ord_x / 2 - track.width / 2;
     int right_border = screen.ord_x / 2 + track.width / 2;
     int min_y = 5, max_y = 10;
