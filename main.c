@@ -8,7 +8,7 @@
 #include "game.h"
 
 
-#define WAIT_TIME 100
+#define GETCHAR_TIMEOUT_MILLSEC 100
 #define KEY_ESCAPE 27
 #define FINISHLINE_DRAWING_OFFSET 20
 
@@ -123,7 +123,7 @@ void init_screen()
     cbreak(); /* введеный символ доступен сразу же после ввода */
     keypad(stdscr, 1); /* обработка escape поседовательности */ 
     noecho(); 
-    timeout(WAIT_TIME);
+    timeout(GETCHAR_TIMEOUT_MILLSEC);
 }
 
 void handle_move_action(Action action, Point old_position, Point *car_position)
