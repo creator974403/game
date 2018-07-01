@@ -3,7 +3,7 @@
 #include "game.h"
 #include "car.h"
 
-int is_car_collide_with_track(Point car_position, Track track, Screen screen)
+int is_car_collide_with_wall(Point car_position, Track track, Screen screen)
 {
     int left_border = screen.ord_x / 2 - track.width / 2;
     int right_border= screen.ord_x / 2 + track.width / 2;

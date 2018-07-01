@@ -68,7 +68,7 @@ int main()
         int dt = (int)difftime(after, before);
         Point old_position = car_position;
         handle_move_action(action, old_position, &car_position);
-        if (is_car_collide_with_track(car_position, track, screen)) {
+        if (is_car_collide_with_wall(car_position, track, screen)) {
             endwin();
             printf("GAVE OVER\n");
             break;
