@@ -17,11 +17,11 @@ void draw_track(Track track, Screen screen, int *fence)
         addch(fence[y]);
     }
     
-    temp = fence[screen.ord_y];
-    fence[0] = temp;
-    for (y = 0; y < max_y - 1; ++y) {
+    temp = fence[screen.ord_y - 1];
+    for (y = screen.ord_y - 1; y >= 0; ++y) {
         fence[y+1] = fence[y];
     }
+    fence[0] = temp;
 }
 
 void draw_finish(Track track, Screen screen)
