@@ -13,4 +13,5 @@ typedef struct {
 void draw_track(Track track, Screen screen, int *fence);
 void draw_finish(Track track, Screen screen);
 
+
 #endif
