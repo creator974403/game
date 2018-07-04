@@ -86,6 +86,7 @@ int main()
         }
 
         draw_track(track, screen, &fence);
+        draw_edges_of_track(&fence, ord_y);
         refresh();
     }
     return 0;
