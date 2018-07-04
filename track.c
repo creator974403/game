@@ -50,7 +50,7 @@ void draw_edges_of_track(int *fence, int ord_y)
 void draw_track_at_screen_offset(Track track, Screen screen, int screen_y_offset) 
 {
     TrackFence *fences = track.fences;
-    int fences_count = track.fences_count;
+    int fences_count = track.fence_count;
     int i;
 
     for (i = 0; i < fences_count; ++i) {

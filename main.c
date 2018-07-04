@@ -42,35 +42,35 @@ int main()
     screen.ord_x = ord_x;
     screen.ord_y = ord_y;
 
-    track.length = 1000;
-    track.width  = 40;
-    track.fence_count = 3;
-    track.fences = fences;
-    
     time_t before = time(NULL);
     
     TrackFence f1;
     f1.side = TrackFenceSideLeft;
     f1.y_offset = 4;
-    f1.legnth = 6;
+    f1.length = 6;
     f1.width = 1;
 
     TrackFence f2;
     f2.side = TrackFenceSideRight;
     f2.y_offset = 7;
-    f2.legnth = 6;
+    f2.length = 6;
     f2.width = 1;
 
     TrackFence f3;
     f3.side = TrackFenceSideLeft;
     f3.y_offset = 16;
-    f3.legnth = 3;
+    f3.length = 3;
     f3.width = 1;
 
     TrackFence fences[3];
     fences[0] = f1;
     fences[1] = f2;
     fences[2] = f3;
+
+    track.length = 1000;
+    track.width  = 40;
+    track.fence_count = 3;
+    track.fences = fences;
 
     int fence[ord_y];
     for (i = 0; i < ord_y; ++i) {
