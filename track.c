@@ -7,7 +7,6 @@
 void draw_track(Track track, Screen screen, int *fence) 
 {
     int y;
-    int temp;
     int left_border = (screen.ord_x - track.width) / 2;
     int right_border = (screen.ord_x  + track.width) / 2;
     int min_y = 0, max_y = screen.ord_y; 

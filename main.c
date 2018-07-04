@@ -55,7 +55,7 @@ int main()
         }
     }
 
-    draw_track(track, screen, &fence);
+    draw_track(track, screen, fence);
 
     car_position.x = ord_x/2-2;
     car_position.y = ord_y/2;
@@ -85,7 +85,7 @@ int main()
             break;
         }
 
-        draw_track(track, screen, &fence);
+        draw_track(track, screen, fence);
         draw_edges_of_track(&fence, ord_y);
         refresh();
     }
