@@ -48,24 +48,25 @@ void draw_edges_of_track(int *fence, int ord_y)
 }
 
 void draw_track_at_screen_offset(Track track, Screen screen, int screen_y_offset) {
-  TrackFence *fences = track.fences;
-  int fences_count = track.fences_count;
-  
-  for (int i = 0; i < fences_count; ++i) {
-      TrackFence f = fences[i];
-      if (f.y_offset > screen_y_offset + screen.height) {
-        break;
-      }
-      if (f.y_offset + f.lenght < screen_y_offset) {
-        continue;
-      }
-      if (f.y_offset < screen_y_offset) {
-        int l = f.y_offset + f.length - screen_y_offset;
-        draw_fence(0, l, f.side, f.width, track, screen);
-      } else {
-        draw_fence(f.y_offset - screen_y_offset, f.length, f.width, f.side, track, screen);
-      }
-  }
+    TrackFence *fences = track.fences;
+    int fences_count = track.fences_count;
+    int i;
+
+    for (i = 0; i < fences_count; ++i) {
+        TrackFence f = fences[i];
+        if (f.y_offset > screen_y_offset + screen.ord_y) {
+            break;
+        }
+        if (f.y_offset + f.lenght < screen_y_offset) {
+            continue;
+        }
+        if (f.y_offset < screen_y_offset) {
+            int l = f.y_offset + f.length - screen_y_offset;
+            draw_fence(0, l, f.side, f.width, track, screen);
+        } else {
+            draw_fence(f.y_offset - screen_y_offset, f.length, f.width, f.side, track, screen);
+        }
+    }
 }
 
 void draw_fence(int y_offset, 
@@ -74,19 +75,21 @@ void draw_fence(int y_offset,
                 int width,
                 Track track, Screen screen)
 {
-  int left = (screen.width - track.width) / 2;
-  int right = (screen.width + track.width) / 2;
-  
-  for (int y = y_offset; y < length; ++i) {
+  int left = (screen.ord_x - track.width) / 2;
+  int right = (screen.ord_x + track.width) / 2;
+  int y;
+  for (y = y_offset; y < length; ++i) {
     if (side == TrackFenceSideLeft) {
-      for (int x = 0; x < width; ++x) {
-        move(y, left + x);
-        addch("#");
-      }
+        int x;
+        for (x = 0; x < width; ++x) {
+            move(y, left + x);
+            addch("#");
+        }
     } else {
-      for (int x = 0; x < width; ++x) {
-        move(y, right - x);
-        addch("#");
+        int x;
+        for (x = 0; x < width; ++x) {
+            move(y, right - x);
+            addch("#");
       }
     }
   }
