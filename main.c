@@ -63,7 +63,7 @@ int main()
     draw_car_at_point(car_position);
     refresh();
 
-    while( (action = next_action( getch() )) != ActionQuit) {
+    while( (action = next_action()) != ActionQuit) {
         time_t after = time(NULL);
         int dt = (int)difftime(after, before);
         Point old_position = car_position;
@@ -92,8 +92,10 @@ int main()
     return 0;
 }
 
-Action next_action(int key)
+Action next_action()
 {
+    int key = getch();
+
     if (key == KEY_ESCAPE) {
         return ActionQuit;
     }
